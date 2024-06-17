@@ -156,7 +156,9 @@ class Lua {
 							for(arg in args) toLuaValue(l, arg);
 							if(lua_pcall(l, args.length, 1, 0) == OK) return getReturnValues(l) else throw getErrorMessage(l);
 						});
-					case f: throw 'Cannot convert CFUNCTION to Haxe value';
+					case f:
+						trace('Warning! Cannot convert CFUNCTION to Haxe value');
+						return null;
 				}
 			case t if (t == TTHREAD): new Thread(lua_tothread(l, i));
 			case t if (t == TUSERDATA): throw 'Cannot convert TUSERDATA to Haxe value';
