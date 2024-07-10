@@ -82,7 +82,11 @@ class Lua {
 	}
 	
 	public function getGlobalVar(name:String) {
-		return lua_getglobal(l, name);
+		lua_getglobal(l, name);
+		var lua_v = lua_gettop(l);
+		var v = toHaxeValue(l, lua_v);
+		lua_pop(l, lua_v);
+		return v;
 	}
 	
 	public function destroy() {
